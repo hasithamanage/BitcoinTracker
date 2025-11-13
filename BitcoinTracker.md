@@ -9,7 +9,7 @@ The project is built on the **Model-View-ViewModel (MVVM)** architecture, ensuri
 * Display historical Bitcoin price and volume data fetched from the CoinGecko API.
 * Render data visually within the WPF application using proprietary (built-in) drawing logic.
 * Strictly adhere to the MVVM pattern for testability and maintainability.
-* Ensure the codebase is simple, readable, and comprehensively documented with C# XML-style comments.
+* Ensure the codebase is simple, readable, and comprehensively documented with C# single line comments.
 
 ---
 
@@ -19,8 +19,8 @@ The project is built on the **Model-View-ViewModel (MVVM)** architecture, ensuri
 | Class | Purpose | Notes |
 | :--- | :--- | :--- |
 | `DailySummary` | Represents the clean, processed data point for a single day (Date, Price, Volume). | The primary object used for binding and charting. |
-| `CoinGeckoResponse` | (Auto-Generated) Mirrors the raw, complex JSON structure returned by the API. | Used internally for automated deserialization (Serialization). |
-| `PriceDataProcessor` | Provides non-UI logic for scaling, normalizing, and calculating coordinates for the graph rendering. | Contains the mathematical logic for the View/Canvas. |
+| `DailyData` | Represent a single day's criptocurreny market data. | Supports Analyzer class methods calculations. |
+| `Analyzer` | Provides methods to analyze criptocurrency data. | Analyzing longest bearish streak, highest trading volume and best day to buy and sell to maximise the profit. |
 
 ### Services (The Data Source)
 | Class | Purpose | Separation of Concerns |
@@ -114,4 +114,3 @@ This class acts as the **data orchestrator**. It contains the application's logi
 | **Deserialization/Parsing** | Takes the raw JSON string and converts it into a structured C# object using the **Newtonsoft.Json** library's `JObject.Parse()`. | `var data = JObject.Parse(json);` |
 | **Data Transformation** | Manually iterates through the raw JSON arrays (using LINQ to JSON), extracts the price and volume values, and converts the raw UNIX timestamp into a clean `DateTime` object. | `var date = DateTimeOffset.FromUnixTimeMilliseconds(timestamp)...` |
 | **Return Value** | Returns a list of clean, strongly-typed C# objects (`List<DailySummary>`) ready for the WPF UI. | `return summaries;` |
-
